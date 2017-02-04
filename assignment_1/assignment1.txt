@@ -1,0 +1,47 @@
+Note: the main resource used for this assignment was developer.mozilla.org
+Headers:
+Alt-Svc →quic=":443"; ma=2592000; v="35,34"
+    -> HTTP Alternative Services (Alt-Svc), according to the Internet Engineering Task Force (IETF), is a custom header
+        that allows a resource to be "authoritatively available at a separate location."  In essence, this means
+        that if a server experiences a heavy load of traffic at its origin, it gives another
+        server "permission" to utilize its resources.
+Cache-Control →private, max-age=0, must-revalidate, no-transform
+    -> Cache-Control, as the name suggests and according to mozilla.org, determines if and how the returned data can be cached.
+        "private" indicates that the response cannot be cached, as it was intended for a single user.
+        "max-age" indicates the maximum amount of time that the resource will be "fresh."
+        "must-revalidate" indicates that the cache must verify resources before using it if the data is "stale."
+            Because the cache-control is private and the max-age is 0, must-revalidate will require a new request
+        "no-transform" essentially states that the content-type (below) must remain the same and the content format cannot be modified
+            to a different type or resource
+
+Content-Length →5416
+    -> The Content-Length is the length of the response in (8-bit) bytes
+Content-Type →application/json; charset=UTF-8
+    -> The Content-Type is of the type application/json, meaning it returns back json data.  the charset=utf-8
+        means that all characters must be represented as single 8-bit bytes
+Date →Sat, 04 Feb 2017 05:15:15 GMT
+    -> This is the time of the request
+ETag →"vFp1TYDMppbWxVi0Wgw_upD83cI/hUA_q-xY5F343LAgYVtAqRRDgcg"
+    -> The ETag is a digest, typically a hash, of the returned data
+Expires →Sat, 04 Feb 2017 05:15:15 GMT
+    -> The Expires header is determined by the Cache-Control's max-age, which states how long the content is "Fresh."  Because it is set
+        to 0, the returned data immediately expires and cannot be cached
+Server →GSE
+    -> This is the name of the server used that the data is extracted from, which is Google Servlet Engine in this case.
+Vary →Origin
+    -> The Vary header tells the server where to pull data from when it receives a request.  In some cases, if the data is already cached,
+        the server will return the data from the specified cache if it is "fresh."  In this case, because nothing in the Google API is cached, the data comes
+        straight from the Origin server.
+Vary →X-Origin
+    -> See above
+X-Content-Type-Options →nosniff
+    -> The X-Content-Type-Options determines whether or not the type(s) listed in Content-Type (application/json in this case)
+        can be modified, similar to the "no-transform" method in the Cache-Control header.
+X-Frame-Options →SAMEORIGIN
+    -> The X-Frame-Options determines whether or not data can be embedded within an HTML <frame>, <iframe>, or <object> of a
+        webpage.  The option SAMEORIGIN states that the content can be displayed in a <frame>, <iframe>, or <object> if it is on the same
+        origin as the page itself.
+X-XSS-Protection →1; mode=block
+    -> The X-XSS-Protection header stop a page from loading if the browser detects cross-site scripting which may otherwise allow
+        people in inject scripts to otherwise trusted web pages.  In this case, XSS filtering is enabled and the browser prevents any
+        rendering of the page.
