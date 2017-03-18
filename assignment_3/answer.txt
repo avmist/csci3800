@@ -1,0 +1,3 @@
+Give one reason (there are many) OAuth tokens should not be granted in the main flow, assuming the user has sent in the correct credentials.
+
+One reason OAuth tokens should not be granted on the main flow is the fact that if tokens are granted through the main URI, it now becomes a target for phishing.  By sending the token via an alternative flow, it providews a separate location, making it more difficult for an attacker to try to retrieve information.
